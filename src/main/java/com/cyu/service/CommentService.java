@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 import com.cyu.model.Comment;
 import com.cyu.repository.CommentRepository;
 
-@Service
+@Service : is basically @compoenent, but it is strictly/specifially used to write business logic 
+            such as taling to dao or repositrty to get object and return to controller
 public class CommentService {
 	
-	@Autowired
+	@Autowired : to get singleton object of that class used dependecy injection
 	CommentRepository commentRepository;
 	
 	public List<Comment> getCommentsByProdId(int prodId) {
