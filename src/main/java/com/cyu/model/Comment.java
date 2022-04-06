@@ -17,23 +17,34 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 
-@Entity(name = "Comment")
-@Table(name = "Comment")
+/*
+Entity is object-oriented and table is relation-oriented. You can only use the entity name in the HQL 
+(Hibernate Query Language) to query objects, and the table name in the native SQL.
+
+*/
+@Entity(name = "Comment_hql") - persistence : this table name is used for HQL (hibernate query language) 
+@Getter -lombok
+@Setter -lombok
+@ToString -lombok
+@NoArgsConstructor -lombok
+@ArgsConstructor -lombok
+@Table(name = "Comment_mysql") - persistence : this table name is used for sql
 public class Comment {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id  ---- to define primary key : In hibernate primary key is always present
+	@GeneratedValue(strategy = GenerationType.AUTO) --- How is the primary key generated, GenerationType.AUTO: autoincrement
 	int id;
 	int prodId;
 	
-    @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
+    @ManyToOne. : is used one to many mapping
+    @JoinColumn(name="user_id", nullable=false) : speciy the join column/ forigen key
     private Person user;
 	String text;
 	
 	
 	@OneToMany(mappedBy="comment",cascade = CascadeType.ALL) //Comment comment; "comment" is basically the variable name comment
-	@JsonIgnore
+	@JsonIgnore : This object can be ignored for some cases, if innerComments attricute is not found, we can still map object to the 
+	               class with null value
     private List<InnerComment> innerComments;
 	
 	public Comment() {
